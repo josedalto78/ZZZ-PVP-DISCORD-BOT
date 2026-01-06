@@ -22,6 +22,9 @@ client.once("ready", () => {
   console.log("Bot está online!");
 });
 
+// Remove listeners antigos ANTES de adicionar o novo (evita duplicação ao reiniciar)
+client.removeAllListeners("messageCreate");
+
 client.on("messageCreate", (message) => {
   pingCommand(client, message, db);
   winCommand(client, message, db);
@@ -30,4 +33,12 @@ client.on("messageCreate", (message) => {
   partidaCommand(client, message, db);
 });
 
+// Login do bot
 client.login(process.env.DISCORD_TOKEN);
+
+// Tratamento graceful de shutdown
+process.on("SIGINT", () => {
+  db.close();
+  client.destroy();
+  process.exit();
+});

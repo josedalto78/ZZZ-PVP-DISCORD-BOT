@@ -9,7 +9,7 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS tb_player (
     cd_player INTEGER PRIMARY KEY AUTOINCREMENT,
-    dc_id TEXT NOT NULL,
+    dc_id TEXT NOT NULL UNIQUE,
     qt_vitoria INTEGER DEFAULT 0,
     ds_rank TEXT,
     qt_pontos INTEGER DEFAULT 0

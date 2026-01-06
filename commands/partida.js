@@ -19,7 +19,7 @@ module.exports = (client, message, db) => {
     const partidaId = this.lastID;
 
     db.run(
-      `INSERT INTO tb_partida_player (cd_partida, cd_player) 
+      `INSERT OR IGNORE INTO tb_partida_player (cd_partida, cd_player) 
        SELECT ?, cd_player FROM tb_player WHERE dc_id IN (?, ?)`,
       [partidaId, player1.id, player2.id],
       function(err) {
